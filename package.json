@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "BuildWise AI — Sketch to complete build plan",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "npm run dev --prefix backend",
@@ -10,7 +13,11 @@
     "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
     "seed": "npm run seed --prefix backend",
     "docker:up": "docker compose up -d",
-    "docker:down": "docker compose down"
+    "docker:down": "docker compose down",
+    "build": "npm ci --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix frontend -- -p ${PORT:-3000}",
+    "build:backend": "npm ci --prefix backend && npm run build --prefix backend",
+    "start:backend": "npm run start --prefix backend"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

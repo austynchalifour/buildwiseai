@@ -116,3 +116,7 @@ db.users.updateOne({ email: "you@example.com" }, { $set: { tier: "pro" } })
 ## License
 
 MIT
+
+## Deployment
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for **Hostinger** and production setup. If you see a **403** after GitHub deploy, you likely need **Node.js Web Apps** hosting with the correct root directory (`frontend`), not standard web hosting.

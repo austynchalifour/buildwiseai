@@ -9,7 +9,23 @@ import projectRoutes from './routes/projects';
 
 const app = express();
 
-app.use(cors({ origin: env.frontendUrl, credentials: true }));
+const allowedOrigins = env.frontendUrl
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(null, false);
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use('/uploads', express.static(path.resolve(env.uploadDir)));
 
@@ -24,8 +40,8 @@ app.use(errorHandler);
 
 async function start() {
   await connectDatabase();
-  app.listen(env.port, () => {
-    console.log(`BuildWise API running on http://localhost:${env.port}`);
+  app.listen(env.port, '0.0.0.0', () => {
+    console.log(`BuildWise API running on port ${env.port}`);
   });
 }
 
