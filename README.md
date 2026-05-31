@@ -2,6 +2,8 @@
 
 Upload a sketch of what you want to build and instantly receive a complete material list, cost estimate, shopping cart, and step-by-step construction plan.
 
+**Repository:** [github.com/austynchalifour/buildwiseai](https://github.com/austynchalifour/buildwiseai)
+
 ## Stack
 
 | Layer | Technology |
