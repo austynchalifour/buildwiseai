@@ -1,6 +1,7 @@
 import { User, Project } from './types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+// Empty string = same-origin (unified server). Override for split deployments.
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? '';
 
 function getToken(): string | null {
   if (typeof window === 'undefined') return null;

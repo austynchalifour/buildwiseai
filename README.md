@@ -53,11 +53,11 @@ npm run install:all
 ### 3. Configure environment
 
 ```bash
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env.local
+cp .env.example .env
+# or: cp backend/.env.example backend/.env
 ```
 
-Edit `backend/.env` and optionally set `OPENAI_API_KEY` for real AI analysis.
+Edit `.env` or `backend/.env` and set `MONGODB_URI`. Optionally set `OPENAI_API_KEY`.
 
 ### 4. Seed retail catalog
 
@@ -71,22 +71,16 @@ npm run seed
 npm run dev
 ```
 
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:4000
+Open **http://localhost:3000** — frontend and API run together on one port.
 
 ## Project Structure
 
 ```
 BuildWise/
-├── backend/          # Express API + MongoDB
-│   └── src/
-│       ├── models/     # User, Project, RetailProduct
-│       ├── routes/     # Auth, Projects
-│       └── services/   # AI, costs, retail, PDF
-├── frontend/         # Next.js app
-│   ├── app/            # Pages (dashboard, projects)
-│   └── components/     # UI components
-└── docker-compose.yml  # MongoDB
+├── server/           # Unified Express + Next.js entry
+├── backend/src/      # API routes, models, services
+├── frontend/         # Next.js UI
+└── package.json      # Single deploy target
 ```
 
 ## API Endpoints
@@ -119,4 +113,4 @@ MIT
 
 ## Deployment
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for **Hostinger** and production setup. If you see a **403** after GitHub deploy, you likely need **Node.js Web Apps** hosting with the correct root directory (`frontend`), not standard web hosting.
+See [DEPLOYMENT.md](./DEPLOYMENT.md). **One Node.js app** on Hostinger — root directory `.`, build `npm run build`, start `npm run start`.

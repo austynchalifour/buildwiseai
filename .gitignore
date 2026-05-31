@@ -6,5 +6,7 @@ uploads/
 .env.local
 backend/.env
 frontend/.env.local
+frontend/.next/
+backend/dist/
 *.log
 .DS_Store

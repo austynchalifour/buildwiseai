@@ -3,23 +3,53 @@
   "version": "1.0.0",
   "private": true,
   "description": "BuildWise AI — Sketch to complete build plan",
+  "main": "dist/server/index.js",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "npm run dev --prefix backend",
-    "dev:frontend": "npm run dev --prefix frontend",
-    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
-    "seed": "npm run seed --prefix backend",
+    "dev": "tsx watch server/index.ts",
+    "build": "npm run build:frontend && npm run build:server",
+    "build:frontend": "npm run build --prefix frontend",
+    "build:server": "tsc -p tsconfig.server.json",
+    "start": "node dist/server/index.js",
+    "seed": "tsx backend/src/scripts/seedRetailCatalog.ts",
+    "install:all": "npm install && npm install --prefix frontend",
     "docker:up": "docker compose up -d",
-    "docker:down": "docker compose down",
-    "build": "npm ci --prefix frontend && npm run build --prefix frontend",
-    "start": "npm run start --prefix frontend -- -p ${PORT:-3000}",
-    "build:backend": "npm ci --prefix backend && npm run build --prefix backend",
-    "start:backend": "npm run start --prefix backend"
+    "docker:down": "docker compose down"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.469.0",
+    "mongoose": "^8.9.3",
+    "multer": "^1.4.5-lts.1",
+    "next": "^15.1.3",
+    "openai": "^4.77.0",
+    "pdfkit": "^0.15.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.5",
+    "@types/pdfkit": "^0.13.8",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }

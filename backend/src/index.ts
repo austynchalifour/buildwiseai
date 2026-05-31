@@ -1,45 +1,16 @@
-import express from 'express';
-import cors from 'cors';
+// Standalone API-only mode (legacy). Prefer: npm run dev from repo root.
 import path from 'path';
+import dotenv from 'dotenv';
+import { createApiApp } from './app';
 import { connectDatabase } from './config/database';
 import { env } from './config/env';
-import { errorHandler } from './middleware/errorHandler';
-import authRoutes from './routes/auth';
-import projectRoutes from './routes/projects';
 
-const app = express();
-
-const allowedOrigins = env.frontendUrl
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-
-app.use(
-  cors({
-    origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-        return;
-      }
-      callback(null, false);
-    },
-    credentials: true,
-  })
-);
-app.use(express.json());
-app.use('/uploads', express.static(path.resolve(env.uploadDir)));
-
-app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', service: 'BuildWise AI API' });
-});
-
-app.use('/api/auth', authRoutes);
-app.use('/api/projects', projectRoutes);
-
-app.use(errorHandler);
+dotenv.config({ path: path.resolve(process.cwd(), 'backend/.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 async function start() {
   await connectDatabase();
+  const app = createApiApp();
   app.listen(env.port, '0.0.0.0', () => {
     console.log(`BuildWise API running on port ${env.port}`);
   });
