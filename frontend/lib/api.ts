@@ -1,6 +1,6 @@
 import { User, Project } from './types';
 
-// Empty string = same-origin (unified server). Override for split deployments.
+// Dev: frontend/.env.local → :4000. Production (unified): leave unset for same-origin.
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? '';
 
 function getToken(): string | null {

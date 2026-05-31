@@ -68,10 +68,15 @@ npm run seed
 ### 5. Run the app
 
 ```bash
+npm install
+npm install --prefix frontend
 npm run dev
 ```
 
-Open **http://localhost:3000** — frontend and API run together on one port.
+- **UI:** http://localhost:3000  
+- **API:** http://localhost:4000  
+
+Production-style single port: `npm run dev:unified` → http://localhost:3000
 
 ## Project Structure
 
